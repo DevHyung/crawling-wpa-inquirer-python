@@ -21,10 +21,47 @@ for i in range(1,9): # 8개
         driver.find_element_by_xpath('//*[@id="rcbBase_DropDown"]/div/ul/li[{}]'.format(twoIdx)).click()
         time.sleep(2)
         input("넘어가려면클릭")
-        bs4 = BeautifulSoup(driver.page_source, 'lxml')
-        runEnv = bs4.find('input', id='rcbRun_Input')['value']
-        baseSitu = bs4.find('input',id='rcbBase_Input')['value']
-        print(runEnv,baseSitu)
+
+        # 세번째
+        for threeIdx in range(1, 19):  # 8개
+            driver.find_element_by_xpath('//*[@id="rcbInning_Input"]').click()
+            time.sleep(1)
+            driver.find_element_by_xpath('//*[@id="rcbInning_DropDown"]/div/ul/li[{}]'.format(threeIdx)).click()
+            time.sleep(2)
+            input("넘어가려면클릭")
+
+            # 세번째
+            for threeIdx in range(1, 19):  # 8개
+                driver.find_element_by_xpath('//*[@id="rcbInning_Input"]').click()
+                time.sleep(1)
+                driver.find_element_by_xpath('//*[@id="rcbInning_DropDown"]/div/ul/li[{}]'.format(threeIdx)).click()
+                time.sleep(2)
+                input("넘어가려면클릭")
+
+                # 네번째 rcbOuts_Input
+                for fourIdx in range(1, 4):  # 3개
+                    driver.find_element_by_xpath('//*[@id="rcbOuts_Input"]').click()
+                    time.sleep(1)
+                    driver.find_element_by_xpath('//*[@id="rcbOuts_DropDown"]/div/ul/li[{}]'.format(fourIdx)).click()
+                    time.sleep(2)
+                    input("넘어가려면클릭")
+
+                    # 다섯번째 rcbScore_Input
+                    for fiveIdx in range(1, 22):  # 21개
+                        driver.find_element_by_xpath('//*[@id="rcbScore_Input"]').click()
+                        time.sleep(1)
+                        driver.find_element_by_xpath(
+                            '//*[@id="rcbScore_DropDown"]/div/ul/li[{}]'.format(fiveIdx)).click()
+                        time.sleep(2)
+                        input("넘어가려면클릭")
+                        #=== TEST PRINT
+                        bs4 = BeautifulSoup(driver.page_source, 'lxml')
+                        runEnv = bs4.find('input', id='rcbRun_Input')['value']
+                        baseSitu = bs4.find('input',id='rcbBase_Input')['value']
+                        inning = bs4.find('input', id='rcbInning_Input')['value']
+                        outs = bs4.find('input', id='rcbOuts_Input')['value']
+                        runDifferential = bs4.find('input', id='rcbScore_Input')['value']
+                        print(runEnv,baseSitu,inning,outs.runDifferential)
 
 
 driver.quit()
