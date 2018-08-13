@@ -1,2 +1,5 @@
 .idea/
 chromedriver.exe
+###Linux
+chromedriver
+
