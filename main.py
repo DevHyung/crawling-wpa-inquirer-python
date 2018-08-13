@@ -90,13 +90,13 @@ for i in range(1,9): # 8개
                     runDifferential = bs4.find('input', id='rcbScore_Input')['value']
                     homeExp = driver.find_element_by_xpath('//*[@id="radAjax"]/table/tbody/tr[6]/td[2]').text.strip()
                     Leverage =driver.find_element_by_xpath('//*[@id="radAjax"]/table/tbody/tr[8]/td[2]').text.strip()
-                    print(runEnv,baseSitu,inning,outs,runDifferential,homeExp,Leverage)
                     if len(homedatalist) == 0:
-                        homedatalist.extend([runEnv,baseSitu,inning,outs,runDifferential,homeExp])
+                        homedatalist.extend([runEnv,baseSitu,inning,outs,homeExp])
+                        print(runEnv, baseSitu, inning, outs, runDifferential, homeExp, Leverage)
                     else:
                         homedatalist.append(homeExp)
                     if len(leveragedatalist) == 0:
-                        leveragedatalist.extend([runEnv,baseSitu,inning,outs,runDifferential,Leverage])
+                        leveragedatalist.extend([runEnv,baseSitu,inning,outs,Leverage])
                     else:
                         leveragedatalist.append(Leverage)
                 print(homedatalist)
