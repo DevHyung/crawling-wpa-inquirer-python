@@ -61,7 +61,7 @@ for i in range(1,9): # 8개
                         inning = bs4.find('input', id='rcbInning_Input')['value']
                         outs = bs4.find('input', id='rcbOuts_Input')['value']
                         runDifferential = bs4.find('input', id='rcbScore_Input')['value']
-                        print(runEnv,baseSitu,inning,outs.runDifferential)
+                        print(runEnv,baseSitu,inning,outs,runDifferential)
 
 
 driver.quit()
