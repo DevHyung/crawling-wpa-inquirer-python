@@ -8,9 +8,14 @@ import os
 driver = webdriver.Chrome('./chromedriver')
 driver.maximize_window()
 driver.get('https://www.fangraphs.com/tools/wpa-inquirer')
-DELAY = 3
+
 def click_by_xpath(_xpath):
+    tmpIdx = 1
     while True:
+        if tmpIdx == 20:
+            break
+        else:
+            tmpIdx += 1
         try:
             driver.find_element_by_xpath(_xpath).click()
             break
@@ -38,35 +43,42 @@ def save_excel(_filename,_datalist):
         sheet1.append(_datalist)
         book.save(FILENAME)
 
-for i in range(1,9): # 8개
+DELAY = 3
+# 원래 1,9까지 사실상 1~8까지
+# 진행중
+# 2,3,4,5, 6
+# 완료
+# 1
+for i in range(8,9): # 8개
     # 첫번째
+    HOMEFILE = 'home{}.xlsx'.format(i)
+    LEVERFILE = 'leverage{}.xlsx'.format(i)
+    print(">>>", HOMEFILE, '시작')
+
     driver.find_element_by_xpath('//*[@id="rcbRun_Input"]').click()
-    time.sleep(1)
-    driver.find_element_by_xpath('//*[@id="rcbRun_DropDown"]/div/ul/li[{}]'.format(i)).click() # 첫번쨰
+    click_by_xpath('//*[@id="rcbRun_DropDown"]/div/ul/li[{}]'.format(i))
+    #driver.find_element_by_xpath('//*[@id="rcbRun_DropDown"]/div/ul/li[{}]'.format(i)).click() # 첫번쨰
     #time.sleep(DELAY)
 
     # 두번쨰
     for twoIdx in range(1,9): #8개
         #driver.find_element_by_xpath('//*[@id="rcbBase_Input"]').click()
         click_by_xpath('//*[@id="rcbBase_Input"]')
-        time.sleep(1)
-        driver.find_element_by_xpath('//*[@id="rcbBase_DropDown"]/div/ul/li[{}]'.format(twoIdx)).click()
+        click_by_xpath('//*[@id="rcbBase_DropDown"]/div/ul/li[{}]'.format(twoIdx))
         #time.sleep(DELAY)
 
         # 세번째
         for threeIdx in range(1, 19):  # 8개
             #driver.find_element_by_xpath('//*[@id="rcbInning_Input"]').click()
             click_by_xpath('//*[@id="rcbInning_Input"]')
-            time.sleep(1)
-            driver.find_element_by_xpath('//*[@id="rcbInning_DropDown"]/div/ul/li[{}]'.format(threeIdx)).click()
+            click_by_xpath('//*[@id="rcbInning_DropDown"]/div/ul/li[{}]'.format(threeIdx))
             #time.sleep(DELAY)
 
             # 네번째 rcbOuts_Input
             for fourIdx in range(1, 4):  # 3개
                 #driver.find_element_by_xpath('//*[@id="rcbOuts_Input"]').click()
                 click_by_xpath('//*[@id="rcbOuts_Input"]')
-                time.sleep(1)
-                driver.find_element_by_xpath('//*[@id="rcbOuts_DropDown"]/div/ul/li[{}]'.format(fourIdx)).click()
+                click_by_xpath('//*[@id="rcbOuts_DropDown"]/div/ul/li[{}]'.format(fourIdx))
                 #time.sleep(DELAY)
                 homedatalist = []
                 leveragedatalist = []
@@ -74,9 +86,8 @@ for i in range(1,9): # 8개
                 for fiveIdx in range(1, 22):  # 21개
                     #driver.find_element_by_xpath('//*[@id="rcbScore_Input"]').click()
                     click_by_xpath('//*[@id="rcbScore_Input"]')
-                    time.sleep(1)
-                    driver.find_element_by_xpath(
-                        '//*[@id="rcbScore_DropDown"]/div/ul/li[{}]'.format(fiveIdx)).click()
+                    click_by_xpath(
+                        '//*[@id="rcbScore_DropDown"]/div/ul/li[{}]'.format(fiveIdx))
 
                     click_by_xpath('//*[@id="rcbScore_Input"]')
                     click_by_xpath('//*[@id="rcbScore_Input"]')
@@ -99,8 +110,8 @@ for i in range(1,9): # 8개
                         leveragedatalist.extend([runEnv,baseSitu,inning,outs,Leverage])
                     else:
                         leveragedatalist.append(Leverage)
-                print(homedatalist)
-                save_excel('home.xlsx',homedatalist)
-                print(leveragedatalist)
-                save_excel('leverage.xlsx', leveragedatalist)
+                #print(homedatalist)
+                #print(leveragedatalist)
+                save_excel(HOMEFILE, homedatalist)
+                save_excel(LEVERFILE, leveragedatalist)
 driver.quit()
